@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
-import { Formik, Form, Field, ErrorMessage} from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useSelector } from "react-redux";
 import * as yup from 'yup';
 import css from "./ContactForm.module.css";
 const validation = yup.object({
@@ -7,6 +8,8 @@ const validation = yup.object({
   number: yup.string().min(3,"Too short").max(50).required("Required"),
     });
 export default function ContactForm({ onSubmit }) {
+    const contactState = useSelector((state) => state.initialState.items);
+    console.log(contactState);
     const handleSubmit = (values, actions) => {
         onSubmit({
             ...values,
