@@ -1,20 +1,19 @@
-import { nanoid } from 'nanoid'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useSelector } from "react-redux";
+// import { nanoid } from 'nanoid'
 import * as yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useDispatch } from "react-redux";
+import { addContact } from '../../redux/contactsSlice';
+
 import css from "./ContactForm.module.css";
+
 const validation = yup.object({
   name: yup.string().min(3, "Too short").max(50).required("Required"),
   number: yup.string().min(3,"Too short").max(50).required("Required"),
     });
-export default function ContactForm({ onSubmit }) {
-    const contactState = useSelector((state) => state.initialState.items);
-    console.log(contactState);
+export default function ContactForm() {
+    const dispatch = useDispatch();
     const handleSubmit = (values, actions) => {
-        onSubmit({
-            ...values,
-                id: nanoid(),
-            })
+       dispatch(addContact(values.name, values.number))
           actions.resetForm();
     }
     return (
