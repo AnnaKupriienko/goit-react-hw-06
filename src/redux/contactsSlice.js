@@ -33,12 +33,11 @@ const contactsSlice = createSlice({
             reducer: (state, action) => {
             state.items.push(action.payload);
             },
-            prepare: (value) => {
+            prepare: (name, number) => {
                 return {
                     payload: {
                         id: crypto.randomUUID(),
-                        items: value,
-                    },
+                       name, number }
                 };
             }
         },
